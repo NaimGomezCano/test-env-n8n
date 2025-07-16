@@ -1,0 +1,221 @@
+{
+  "id": "sjVGMbKRxAnDJcco",
+  "name": "Forticlient",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        16
+      ],
+      "id": "47581bb5-d376-4f49-874c-c63960eac749",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": 1,
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        224,
+        16
+      ],
+      "id": "fb5b3f5b-af3a-4478-aea2-02ab30757044",
+      "name": "Get many messages",
+      "webhookId": "75b3a7ad-84fb-42d4-81a6-c5254397430d",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "qM0ANpy0Z2yEzfX3",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "internalDate",
+              "order": "descending"
+            }
+          ]
+        },
+        "options": {
+          "disableDotNotation": false
+        }
+      },
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        448,
+        16
+      ],
+      "id": "f498b47d-0090-4e4f-bfa1-207d1d27c7e2",
+      "name": "Sort"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f92d8960-6b09-44fb-b519-ca6c64ed762a",
+              "leftValue": "={{ $json.snippet }}",
+              "rightValue": "Your authentication token code is",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        16
+      ],
+      "id": "ecd34b9d-adc5-4220-a1ac-4d48b86c1445",
+      "name": "If"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        896,
+        112
+      ],
+      "id": "2d8e854b-aa91-4e64-b054-edb83cd82980",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4397922d-a7f7-47f8-a829-800159d83c4d",
+              "name": "snippet",
+              "value": "={{ $json.snippet.match(/\\d+/g)?.[0] || '' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        896,
+        -80
+      ],
+      "id": "33f68b97-26cd-478c-837d-f68424a30d69",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "command": "sudo openfortivpn 91.126.218.54:10443 --username seidor3 --password '_Mychef3' --trusted-cert b97e6b9a170f33879af38c32c5c250d450e325db6405747a6fd10b59c5a3d6de"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1072,
+        -80
+      ],
+      "id": "2daf83d8-e928-4a89-a442-ddabed359a40",
+      "name": "Execute Command",
+      "executeOnce": false,
+      "onError": "continueErrorOutput"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get many messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many messages": {
+      "main": [
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "triggerCount": 0,
+  "versionId": "8b8b58c2-12e7-4f39-95be-618640d47220",
+  "owner": {
+    "type": "personal",
+    "projectId": "8nOgX2IOQRRHBvrm",
+    "projectName": "Naim Gomez I Cano <naimgomezcn@gmail.com>",
+    "personalEmail": "naimgomezcn@gmail.com"
+  },
+  "parentFolderId": null,
+  "isArchived": false
+}

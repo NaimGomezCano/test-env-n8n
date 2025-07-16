@@ -1,0 +1,62 @@
+{
+  "id": "lqf77CtRYTIUQNyC",
+  "name": "sap",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d6e80582-5e91-48f9-a194-df70decf4e71",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "get"
+      },
+      "type": "n8n-nodes-sap-service-layer.sapServiceLayer",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "823cfb8f-8934-44e4-9a45-0ef4d8547a17",
+      "name": "Get a record",
+      "credentials": {
+        "sapServiceLayerApi": {
+          "id": "3eeHwFuM96ekLneY",
+          "name": "PlantScanner - SAP Service Layer account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "triggerCount": 0,
+  "versionId": "a1ccaf6f-9338-4052-af0d-641acd5fe162",
+  "owner": {
+    "type": "personal",
+    "projectId": "8nOgX2IOQRRHBvrm",
+    "projectName": "Naim Gomez I Cano <naimgomezcn@gmail.com>",
+    "personalEmail": "naimgomezcn@gmail.com"
+  },
+  "parentFolderId": null,
+  "isArchived": false
+}

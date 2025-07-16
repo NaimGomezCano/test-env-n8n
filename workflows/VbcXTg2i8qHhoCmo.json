@@ -1,0 +1,56 @@
+{
+  "id": "VbcXTg2i8qHhoCmo",
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "77424b27-2a37-41d4-8ccb-817cb752f8f4",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "f87cda8b-c774-4b7f-86d2-c953bc14ea3e",
+      "name": "Edit Fields"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "triggerCount": 0,
+  "versionId": "c1c9c14b-cbd6-4419-a01a-bb3d5cda5328",
+  "owner": {
+    "type": "personal",
+    "projectId": "8nOgX2IOQRRHBvrm",
+    "projectName": "Naim Gomez I Cano <naimgomezcn@gmail.com>",
+    "personalEmail": "naimgomezcn@gmail.com"
+  },
+  "parentFolderId": null,
+  "isArchived": false
+}

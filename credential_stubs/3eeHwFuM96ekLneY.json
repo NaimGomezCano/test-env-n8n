@@ -1,0 +1,17 @@
+{
+  "id": "3eeHwFuM96ekLneY",
+  "name": "PlantScanner - SAP Service Layer account",
+  "type": "sapServiceLayerApi",
+  "data": {
+    "url": "",
+    "companyDB": "",
+    "username": "",
+    "password": ""
+  },
+  "ownedBy": {
+    "type": "personal",
+    "projectId": "8nOgX2IOQRRHBvrm",
+    "projectName": "Naim Gomez I Cano <naimgomezcn@gmail.com>",
+    "personalEmail": "naimgomezcn@gmail.com"
+  }
+}

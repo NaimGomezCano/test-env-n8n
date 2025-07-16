@@ -1,0 +1,31 @@
+{
+  "id": "jstdEwukaX98qmbE",
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "210e6322-12fe-47e3-920e-2a058bf2764b",
+      "name": "When clicking ‘Execute workflow’"
+    }
+  ],
+  "connections": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "triggerCount": 0,
+  "versionId": "e0742a7b-4ebe-4035-b5c0-51334745f1cf",
+  "owner": {
+    "type": "personal",
+    "projectId": "8nOgX2IOQRRHBvrm",
+    "projectName": "Naim Gomez I Cano <naimgomezcn@gmail.com>",
+    "personalEmail": "naimgomezcn@gmail.com"
+  },
+  "parentFolderId": null,
+  "isArchived": true
+}

@@ -1,0 +1,236 @@
+{
+  "id": "SoTPM625BsHI55KC",
+  "name": "My workflow 3",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        -208,
+        256
+      ],
+      "typeVersion": 1,
+      "id": "ce2298b7-b853-431a-b906-ae33f7c32afb"
+    },
+    {
+      "parameters": {
+        "url": "={{$node[\"Config URL\"].json[\"next\"]}}",
+        "options": {},
+        "queryParametersUi": {
+          "parameter": [
+            {
+              "name": "hapikey",
+              "value": "<YOUR_API_KEY>"
+            },
+            {
+              "name": "limit",
+              "value": "100"
+            }
+          ]
+        }
+      },
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        192,
+        256
+      ],
+      "typeVersion": 1,
+      "id": "76a18dae-5ebc-445f-a746-78ce38c447d1"
+    },
+    {
+      "parameters": {},
+      "name": "NoOp",
+      "type": "n8n-nodes-base.noOp",
+      "position": [
+        400,
+        256
+      ],
+      "typeVersion": 1,
+      "id": "9698eee1-b90b-49cb-a8c9-6524aa8a70f9"
+    },
+    {
+      "parameters": {
+        "functionCode": "return new Promise((resolve, reject) => {\n      setTimeout(() => { resolve([{ json: {} }]) }, 5000);\n    })\n"
+      },
+      "name": "Wait",
+      "type": "n8n-nodes-base.function",
+      "position": [
+        592,
+        256
+      ],
+      "typeVersion": 1,
+      "id": "e0093570-a3bd-4348-a6d5-5c660f52a34f"
+    },
+    {
+      "parameters": {
+        "functionCode": "\nlet next = 'https://api.hubapi.com/crm/v3/objects/contacts'\n\nif (items[0].json.next) {\n  next = items[0].json.next\n}\n\nreturn [\n  {\n    json: {\n      next : next\n    }\n  }\n]"
+      },
+      "name": "Config URL",
+      "type": "n8n-nodes-base.function",
+      "position": [
+        -16,
+        256
+      ],
+      "typeVersion": 1,
+      "id": "cf7a9621-e01a-42a2-915f-4afbe2d5a689"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [],
+          "boolean": [
+            {
+              "value1": "={{$node[\"HTTP Request\"].json[\"paging\"] ? true : false}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "name": "Check if pagination?",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        848,
+        256
+      ],
+      "typeVersion": 1,
+      "id": "f6e96693-fb7d-4e68-bfa9-2c7001b8ef78"
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "next",
+              "value": "={{$node[\"HTTP Request\"].json[\"paging\"][\"next\"][\"link\"]}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set next URL",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        496,
+        -32
+      ],
+      "executeOnce": true,
+      "typeVersion": 1,
+      "id": "05637ddb-5382-4438-9f6d-faa5dee7e502"
+    },
+    {
+      "parameters": {
+        "functionCode": "const allData = []\n\nlet counter = 0;\ndo {\n  try {\n    const items = $items(\"HTTP Request\", 0, counter).map(item => item.json.results);\n                    \n    const aja = items[0].map(item => {\n      return { json: item }\n    })    \n    \n    allData.push.apply(allData, aja);\n    //allData.push($items(\"Increment\", 0, counter));\n  } catch (error) {\n    return allData;  \n  }\n\n  counter++;\n} while(true);\n\n"
+      },
+      "name": "Combine all data",
+      "type": "n8n-nodes-base.function",
+      "position": [
+        1104,
+        336
+      ],
+      "typeVersion": 1,
+      "id": "054f4799-1ce3-460e-854b-980bcbd046e8"
+    }
+  ],
+  "connections": {
+    "NoOp": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Check if pagination?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config URL": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "NoOp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set next URL": {
+      "main": [
+        [
+          {
+            "node": "Config URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if pagination?": {
+      "main": [
+        [
+          {
+            "node": "Set next URL",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Combine all data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Config URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "triggerCount": 0,
+  "versionId": "e2d710fb-e7fe-428f-bad8-68f04cb51e68",
+  "owner": {
+    "type": "personal",
+    "projectId": "8nOgX2IOQRRHBvrm",
+    "projectName": "Naim Gomez I Cano <naimgomezcn@gmail.com>",
+    "personalEmail": "naimgomezcn@gmail.com"
+  },
+  "parentFolderId": null,
+  "isArchived": false
+}

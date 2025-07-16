@@ -1,0 +1,16 @@
+{
+  "id": "qM0ANpy0Z2yEzfX3",
+  "name": "Gmail account",
+  "type": "gmailOAuth2",
+  "data": {
+    "clientId": "",
+    "clientSecret": "",
+    "csrfSecret": ""
+  },
+  "ownedBy": {
+    "type": "personal",
+    "projectId": "8nOgX2IOQRRHBvrm",
+    "projectName": "Naim Gomez I Cano <naimgomezcn@gmail.com>",
+    "personalEmail": "naimgomezcn@gmail.com"
+  }
+}
