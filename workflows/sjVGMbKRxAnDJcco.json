@@ -1,6 +1,6 @@
 {
   "id": "sjVGMbKRxAnDJcco",
-  "name": "Forticlient",
+  "name": "Fosdfsdfsdfola",
   "nodes": [
     {
       "parameters": {},
@@ -11,7 +11,7 @@
         16
       ],
       "id": "47581bb5-d376-4f49-874c-c63960eac749",
-      "name": "When clicking ‘Execute workflow’"
+      "name": "Wsdfdsfecute workflow’"
     },
     {
       "parameters": {
@@ -26,12 +26,12 @@
         16
       ],
       "id": "fb5b3f5b-af3a-4478-aea2-02ab30757044",
-      "name": "Get many messages",
+      "name": "Gsdfdsfssages",
       "webhookId": "75b3a7ad-84fb-42d4-81a6-c5254397430d",
       "credentials": {
         "gmailOAuth2": {
           "id": "qM0ANpy0Z2yEzfX3",
-          "name": "Gmail account"
+          "name": "Gsdfsdfnt"
         }
       }
     },
